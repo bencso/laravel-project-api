@@ -23,6 +23,7 @@ services:
     env_file:
       - .env
     user: "${UID:-1000}:${GID:-1000}"
+    # Ebben nem vagyok biztos, hogy nem-e ./:var/www/public
     volumes:
       - ./:/var/www
     networks:
@@ -54,11 +55,11 @@ services:
   postgres:
     image: postgres:16
     ports:
-      - "${POSTGRES_PORT:-5432}:5432"
+      - "${PSQL_PORT:-5432}:5432"
     environment:
-      POSTGRES_DB: app
-      POSTGRES_USER: laravel
-      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: $(PSQL_HOST}
+      POSTGRES_USER: ${PSQL_UNAME}
+      POSTGRES_PASSWORD: ${PSQL_PASS}
       # A custom postgresql.conf betöltése
     volumes:
       - postgres-data-development:/var/lib/postgresql/data
