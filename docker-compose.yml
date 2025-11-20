@@ -79,7 +79,7 @@ services:
     container_name: postgres-admin
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
-      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PWD}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASS}
     ports:
       - ${PGADMIN_PORT:-8080}:80
     depends_on:
