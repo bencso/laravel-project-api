@@ -57,7 +57,7 @@ services:
     ports:
       - "${PSQL_PORT:-5432}:5432"
     environment:
-      POSTGRES_DB: $(PSQL_HOST}
+      POSTGRES_DB: $(PSQL_DB}
       POSTGRES_USER: ${PSQL_UNAME}
       POSTGRES_PASSWORD: ${PSQL_PASS}
       # A custom postgresql.conf betöltése
