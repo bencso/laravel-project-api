@@ -8,6 +8,7 @@ services:
       - "80:80"
     networks:
       - laravel-development
+    # Megvárja, hogy létrejöjjön a php-fpm
     depends_on:
       - php-fpm
 
@@ -26,6 +27,7 @@ services:
       - ./:/var/www
     networks:
       - laravel-development
+    # Megvárja, hogy létrejöjjön a postgres
     depends_on:
       - postgres
 
@@ -37,7 +39,9 @@ services:
         UID: ${UID:-1000}
         GID: ${GID:-1000}
         XDEBUG_ENABLED: false
+    # Teletype: virtuális terminál, hogy majd a php artisan és ezeket tudjam használni
     tty: true
+    # Ez miatt lehet majd docker exec parancsokat végrehajtani (?)
     stdin_open: true
     env_file:
       - .env
@@ -56,7 +60,9 @@ services:
       POSTGRES_PASSWORD: secret
     volumes:
       - postgres-data-development:/var/lib/postgresql/data
-      - ./postgresql.conf:/etc/postgresql.conf
+    # A custom postgresql.conf betöltése
+    command: 
+      -  c config_file=/etc/postgresql.conf
     networks:
       - laravel-development
 
