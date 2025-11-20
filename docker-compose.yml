@@ -74,6 +74,21 @@ services:
     networks:
       - laravel-development
 
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: postgres-admin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PWD}
+    ports:
+      - ${PGADMIN_PORT:-8080}:80
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - backend
+
 networks:
   laravel-development:
 
