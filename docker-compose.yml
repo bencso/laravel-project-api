@@ -41,10 +41,11 @@ services:
         XDEBUG_ENABLED: false
     # Teletype: virtuális terminál, hogy majd a php artisan és ezeket tudjam használni
     tty: true
-    # Ez miatt lehet majd docker exec parancsokat végrehajtani (?)
+    # Hogy be lehessen lépni a containerbe majd
     stdin_open: true
     env_file:
       - .env
+    # Ebben nem vagyok biztos, hogy nem-e ./:var/www/public
     volumes:
       - ./:/var/www
     networks:
@@ -58,11 +59,12 @@ services:
       POSTGRES_DB: app
       POSTGRES_USER: laravel
       POSTGRES_PASSWORD: secret
+      # A custom postgresql.conf betöltése
     volumes:
       - postgres-data-development:/var/lib/postgresql/data
-    # A custom postgresql.conf betöltése
-    command: 
-      -  c config_file=/etc/postgresql.conf
+      - ./postgresql.conf:/etc/postgresql.conf:ro
+     # A custom postgresql.conf betöltése command
+    command: postgres -c config_file=/etc/postgresql.conf
     networks:
       - laravel-development
 
