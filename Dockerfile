@@ -1,5 +1,5 @@
-# PHP-FPM 8.2 alap
-FROM php:8.2-fpm
+# PHP-FPM
+FROM php:8.3-fpm-alpine
 
 # Rendszer csomagok és PHP extensionök telepítése (ZIP, CURL, GIT, PostgreSQL)
 RUN apt-get update && apt-get install -y \
